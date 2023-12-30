@@ -2,47 +2,24 @@ const names = require('all-the-package-names');
 const fs = require('fs');
 const path = require('path');
 
-const { getFirstChar, getPkgJsonData, stringify } = require('./utils');
+const {
+  // getFirstChar,
+  getPkgJsonData,
+  stringify,
+  // NUMBERS_MAP,
+  groupArrayElements,
+  walkPackageTree,
+} = require('./utils');
 
 const PRETTY_PRINT_PACKAGE_JSON =
   ['yes', '1', 'y', 'true'].includes(process.env.PRETTY_PRINT_PACKAGE_JSON) ||
   false;
 
-// remap numbers to words
-const NUMBERS = [
-  'zero',
-  'one',
-  'two',
-  'three',
-  'four',
-  'five',
-  'six',
-  'seven',
-  'eight',
-  'nine',
-];
-// create object to remap numbers to words
-const NUMBERS_MAP = NUMBERS.reduce((acc, curr, i) => {
-  acc[i] = curr;
-  return acc;
-}, {});
+const treeOfDeps = groupArrayElements(names, 800);
 
-const SCOPES = [...'abcdefghijklmnopqrstuvwxyz', ...'1234567890'];
-
-const packages = {};
-
-for (const name of names) {
-  const scope = SCOPES.includes(getFirstChar(name))
-    ? NUMBERS_MAP[getFirstChar(name)]
-      ? NUMBERS_MAP[getFirstChar(name)]
-      : getFirstChar(name)
-    : 'other';
-
-  if (!(scope in packages)) {
-    packages[scope] = [];
-  }
-  packages[scope].push(name);
-}
+walkPackageTree(treeOfDeps, (pkg) => {
+  pkg.packageName = pkg.packageName.replace(/@/g, '');
+});
 
 const LIB = path.join(__dirname, '../lib/');
 if (fs.existsSync(LIB)) fs.rmSync(LIB, { recursive: true });
@@ -146,7 +123,7 @@ if (fileSizeInMegabytes < 1) {
 }
 const msg = `package ${packageName} has the size of ${fileSizeToDisplay}mb`;
 if (fileSizeInMegabytes > 10) {
-  console.warn(`WARNING: ${packageName} is larger than 10mb!`);
+	console.warn(`WARNING: ${packageName} is larger than 10mb!`);
 }
 
 console.log(msg);
