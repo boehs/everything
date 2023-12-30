@@ -14,7 +14,7 @@ function getPkgJsonData(packageName) {
       'Hacksore <sean@boult.me>',
     ],
     scripts: {},
-    keywords: ['everything', 'allthethings', 'everymodule'].filter(Boolean),
+    keywords: ['everything', 'allthethings', 'everymodule'],
     license: 'MIT',
     homepage: 'https://github.com/everything-registry/everything',
   };
