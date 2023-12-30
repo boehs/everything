@@ -1,11 +1,11 @@
 {
+  "private": "true",
   "versions": {
     "main": "3.0.0",
     "chunks": "0.1.0"
   },
   "scripts": {
     "build": "node ./src/build.js",
-    "build:env": "node --env-file=.env ./src/build.js",
     "format": "prettier --write ."
   },
   "dependencies": {
