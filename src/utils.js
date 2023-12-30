@@ -9,6 +9,7 @@ function getPkgJsonData(packageName) {
     contributors: [
       'PatrickJS <github@patrickjs.com>',
       'uncenter <hi@uncenter.dev>',
+      'boehs <evan@boehs.org>',
       'ChatGPT <chatgpt@openai.com>',
       'trash <trash@trash.dev>',
       'Hacksore <sean@boult.me>',
