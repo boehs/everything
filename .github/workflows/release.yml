@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify node version here
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
@@ -34,4 +34,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
-        run: ./scripts/release.sh
+        run: ./scripts/release.js
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: 'chore: update published.json'
