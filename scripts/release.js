@@ -21,7 +21,7 @@ async function publishDirectories() {
 
       console.log(`Publishing directory ${dir}...`);
 
-      await $({ stdio: 'inherit' })`cat package.json`;
+      await $({ stdio: 'inherit' })`npm publish --access public`;
 
       console.log(`Successfully published ${dir}!`);
       PACKAGES.push(dir);
