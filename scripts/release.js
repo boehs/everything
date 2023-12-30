@@ -30,7 +30,8 @@ async function publishDirectories() {
         JSON.stringify(PACKAGES),
       );
     } catch (err) {
-      console.error(`Oh no! Failed to publish ${dir}!`);
+      console.log(`Oh no! Failed to publish ${dir}!`);
+      process.exit(0);
     } finally {
       process.chdir(LIB_PATH);
     }
