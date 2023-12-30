@@ -12,6 +12,7 @@ function getPkgJsonData(packageName) {
       'ChatGPT <chatgpt@openai.com>',
       'trash <trash@trash.dev>',
       'Hacksore <sean@boult.me>',
+      'boehs <evan@boehs.org>',
     ],
     scripts: {},
     keywords: ['everything', 'allthethings', 'everymodule'].filter(Boolean),
