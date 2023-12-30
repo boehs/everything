@@ -15,6 +15,21 @@ const LIB = path.join(__dirname, '../lib/');
 if (fs.existsSync(LIB)) fs.rmSync(LIB, { recursive: true });
 
 function writeChunk(name, deps) {
+  if (
+    [
+      'chunk-0',
+      'chunk-1',
+      'chunk-2',
+      'chunk-3',
+      'chunk-4',
+      'sub-chunk-0',
+      'sub-chunk-1',
+      'sub-chunk-10',
+      'sub-chunk-100',
+      ...Array.from({ length: 444 }, (_, i) => `sub-chunk-${1000 + i}`),
+    ].includes(name)
+  )
+    return;
   const packageName = `@everything-registry/${name}`;
   const packageDir = path.join(LIB, name);
 
@@ -58,33 +73,33 @@ for (let i = 0; i < groups.length; i++) {
   );
 }
 
-const everythingPackageDir = path.join(LIB, 'everything');
-fs.mkdirSync(everythingPackageDir, { recursive: true });
-const everythingPackageName = `everything`;
+// const everythingPackageDir = path.join(LIB, 'everything');
+// fs.mkdirSync(everythingPackageDir, { recursive: true });
+// const everythingPackageName = `everything`;
 
-const everythingPkgJson = stringify(
-  {
-    name: everythingPackageName,
-    version: require('../package.json').versions.main,
-    ...getPkgJsonData(everythingPackageName),
-    repository: {
-      type: 'git',
-      url: 'git+https://github.com/everything-registry/everything.git',
-    },
-    dependencies: groups.reduce((acc, curr, i) => {
-      acc[`@everything-registry/chunk-${i}`] =
-        require('../package.json').versions.chunks;
-      return acc;
-    }, {}),
-  },
-  PRETTY_PRINT_PACKAGE_JSON,
-);
+// const everythingPkgJson = stringify(
+//   {
+//     name: everythingPackageName,
+//     version: require('../package.json').versions.main,
+//     ...getPkgJsonData(everythingPackageName),
+//     repository: {
+//       type: 'git',
+//       url: 'git+https://github.com/everything-registry/everything.git',
+//     },
+//     dependencies: groups.reduce((acc, curr, i) => {
+//       acc[`@everything-registry/chunk-${i}`] =
+//         require('../package.json').versions.chunks;
+//       return acc;
+//     }, {}),
+//   },
+//   PRETTY_PRINT_PACKAGE_JSON,
+// );
 
-fs.writeFileSync(
-  path.join(everythingPackageDir, 'package.json'),
-  everythingPkgJson,
-);
-fs.writeFileSync(
-  path.join(everythingPackageDir, 'index.js'),
-  "console.log('You have installed everything... but at what cost?');",
-);
+// fs.writeFileSync(
+//   path.join(everythingPackageDir, 'package.json'),
+//   everythingPkgJson,
+// );
+// fs.writeFileSync(
+//   path.join(everythingPackageDir, 'index.js'),
+//   "console.log('You have installed everything... but at what cost?');",
+// );
