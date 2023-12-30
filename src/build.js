@@ -3,10 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const {
-  // getFirstChar,
   getPkgJsonData,
   stringify,
-  // NUMBERS_MAP,
   groupArrayElements,
   walkPackageTree,
 } = require('./utils');
@@ -123,7 +121,7 @@ if (fileSizeInMegabytes < 1) {
 }
 const msg = `package ${packageName} has the size of ${fileSizeToDisplay}mb`;
 if (fileSizeInMegabytes > 10) {
-	console.warn(`WARNING: ${packageName} is larger than 10mb!`);
+  console.warn(`WARNING: ${packageName} is larger than 10mb!`);
 }
 
 console.log(msg);

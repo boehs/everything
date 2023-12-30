@@ -2,25 +2,6 @@
 let packageNameCounter = 0;
 const packageNamePrefix = 'Pkg';
 
-// remap numbers to words
-const NUMBERS = [
-  'zero',
-  'one',
-  'two',
-  'three',
-  'four',
-  'five',
-  'six',
-  'seven',
-  'eight',
-  'nine',
-];
-// create object to remap numbers to words
-const NUMBERS_MAP = NUMBERS.reduce((acc, curr, i) => {
-  acc[i] = curr;
-  return acc;
-}, {});
-
 // Function to group array elements into packages
 function groupArrayElements(list, groupSize) {
   // Base case: if the list is small enough, return it as a single package
@@ -99,7 +80,6 @@ function getPkgJsonData(packageName, scope) {
 }
 
 module.exports = {
-  NUMBERS_MAP,
   stringify,
   getFirstChar,
   getPkgJsonData,
