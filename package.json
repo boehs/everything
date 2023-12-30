@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "all-the-package-names": "^2.0.1230",
+    "execa": "^8.0.1",
     "just-split": "^3.2.0"
   },
   "devDependencies": {
