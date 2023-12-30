@@ -5,20 +5,20 @@ const split = require('just-split');
 
 const { getPkgJsonData, stringify } = require('./utils');
 
+const NPM_MAX_DEPS = 800;
 const PRETTY_PRINT_PACKAGE_JSON =
   ['yes', '1', 'y', 'true'].includes(process.env.PRETTY_PRINT_PACKAGE_JSON) ||
   false;
 
-const groups = split(names, 800);
+const subgroups = split(names, NPM_MAX_DEPS);
+const groups = split(subgroups, NPM_MAX_DEPS);
 
 const LIB = path.join(__dirname, '../lib/');
 if (fs.existsSync(LIB)) fs.rmSync(LIB, { recursive: true });
 
-for (let i = 0; i < groups.length; i++) {
-  const chunk = `chunk-${i}`;
-
-  const packageName = `@everything-registry/${chunk}`;
-  const packageDir = path.join(LIB, chunk);
+function writeChunk(name, deps) {
+  const packageName = `@everything-registry/${name}`;
+  const packageDir = path.join(LIB, name);
 
   fs.mkdirSync(packageDir, { recursive: true });
 
@@ -30,9 +30,9 @@ for (let i = 0; i < groups.length; i++) {
       repository: {
         type: 'git',
         url: 'git+https://github.com/everything-registry/everything.git',
-        directory: `lib/${chunk}`,
+        directory: `lib/${name}`,
       },
-      dependencies: groups[i].reduce((acc, curr) => {
+      dependencies: deps.reduce((acc, curr) => {
         acc[curr] = '*';
         return acc;
       }, {}),
@@ -43,6 +43,20 @@ for (let i = 0; i < groups.length; i++) {
   fs.writeFileSync(
     path.join(packageDir, 'index.js'),
     `console.log('Beep boop!');`,
+  );
+}
+
+for (let i = 0; i < groups.length; i++) {
+  for (let j = 0; j < groups[i].length; j++) {
+    writeChunk(`sub-chunk-${j + i * NPM_MAX_DEPS}`, groups[i][j]);
+  }
+
+  writeChunk(
+    `chunk-${i}`,
+    groups[i].reduce((acc, curr, k) => {
+      acc.push(`@everything-registry/sub-chunk-${k + i * NPM_MAX_DEPS}`);
+      return acc;
+    }, []),
   );
 }
 
