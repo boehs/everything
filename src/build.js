@@ -23,7 +23,7 @@ function writeChunk(name, deps) {
   const pkgJson = stringify(
     {
       name: packageName,
-      version: require('../package.json').versions.scoped,
+      version: require('../package.json').versions.chunks,
       ...getPkgJsonData(packageName),
       repository: {
         type: 'git',
@@ -73,7 +73,7 @@ const everythingPkgJson = stringify(
     },
     dependencies: groups.reduce((acc, curr, i) => {
       acc[`@everything-registry/chunk-${i}`] =
-        require('../package.json').versions.scoped;
+        require('../package.json').versions.chunks;
       return acc;
     }, {}),
   },
