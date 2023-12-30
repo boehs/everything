@@ -7,6 +7,7 @@ const { getPkgJsonData, stringify } = require('./utils');
 
 const NPM_MAX_DEPS = 800;
 const PRETTY_PRINT_PACKAGE_JSON = true;
+const PUBLISHED = require('../published.json');
 
 const subgroups = split(names, NPM_MAX_DEPS);
 const groups = split(subgroups, NPM_MAX_DEPS);
@@ -15,21 +16,7 @@ const LIB = path.join(__dirname, '../lib/');
 if (fs.existsSync(LIB)) fs.rmSync(LIB, { recursive: true });
 
 function writeChunk(name, deps) {
-  if (
-    [
-      'chunk-0',
-      'chunk-1',
-      'chunk-2',
-      'chunk-3',
-      'chunk-4',
-      'sub-chunk-0',
-      'sub-chunk-1',
-      'sub-chunk-10',
-      'sub-chunk-100',
-      ...Array.from({ length: 444 }, (_, i) => `sub-chunk-${1000 + i}`),
-    ].includes(name)
-  )
-    return;
+  if (PUBLISHED.includes(name)) return;
   const packageName = `@everything-registry/${name}`;
   const packageDir = path.join(LIB, name);
 
