@@ -7,9 +7,9 @@ function getPkgJsonData(packageName) {
     description: `npm install ${packageName}`,
     main: 'index.js',
     contributors: [
-      'ChatGPT <chatgpt@openai.com>',
       'PatrickJS <github@patrickjs.com>',
       'uncenter <hi@uncenter.dev>',
+      'ChatGPT <chatgpt@openai.com>',
       'trash <trash@trash.dev>',
       'Hacksore <sean@boult.me>',
       'boehs <evan@boehs.org>',
