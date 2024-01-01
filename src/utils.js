@@ -15,7 +15,7 @@ function getPkgJsonData(packageName) {
       'boehs <evan@boehs.org>',
     ],
     scripts: {},
-    keywords: ['everything', 'allthethings', 'everymodule'].filter(Boolean),
+    keywords: ['everything', 'allthethings', 'everymodule'],
     license: 'MIT',
     homepage: 'https://github.com/everything-registry/everything',
   };
