@@ -13,6 +13,7 @@ function getPkgJsonData(packageName) {
       'trash <trash@trash.dev>',
       'Hacksore <sean@boult.me>',
       'boehs <evan@boehs.org>',
+      'Sebastien Colladon <colladonsebastien@gmail.com>',
     ],
     scripts: {},
     keywords: ['everything', 'allthethings', 'everymodule'],
