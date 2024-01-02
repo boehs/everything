@@ -9,7 +9,6 @@ const NPM_MAX_DEPS = 800;
 const PRETTY_PRINT_PACKAGE_JSON = true;
 const PUBLISHED = require('../published.json');
 
-names.splice(names.indexOf('plugin-nakama'), 1);
 const subgroups = split(names, NPM_MAX_DEPS);
 const groups = split(subgroups, NPM_MAX_DEPS);
 
